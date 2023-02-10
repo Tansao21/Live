@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,9 @@ namespace Live
 
 		private int stepFall;
 
-		private int hp;
+		private int gender;
+
+		/*private int hp;*/
 
 
 
@@ -30,20 +33,21 @@ namespace Live
 
 			stepFall= 0;
 
-			hp= 0;
+
+			/*hp= 100;*/
 		}
 
-		public Microbe(int x, int y, ConsoleColor color, int speed, char look)
+		public Microbe(int x, int y, int gender )
 		{
 			this.x = x;
 			this.y = y;
-			this.color = color;
-			this.speed = speed;
-			this.look = look;
+			this.gender = gender;
+			this.color = gender == 0 ? ConsoleColor.Blue : ConsoleColor.Red;
+			this.look = gender == 0 ? '#' : '@';
+	
+		
 
-			this.stepFall = stepFall;
-
-			this.hp = hp;
+			/*this.hp = hp;*/
 		}
 
 		public void ScreenOutput()
@@ -55,26 +59,27 @@ namespace Live
 		public void Movement()
 		{
 			Random rnd = new Random();
-			y += speed;
 
-			stepFall++;
+			int move = rnd.Next(0, 3 + 1);
 
-			if (stepFall % 2 == 0)
+			switch (move)
 			{
-				
-				y = rnd.Next(1, 100);
-			
-			}
-			else
-			{
-			
-				y = rnd.Next(1, 100);
-				
-			}
-
-			if (stepFall >= 10)
-			{
-				stepFall -= 10;
+				case 0:
+					{
+						this.Y++; break;
+					}
+				case 1:
+					{
+						this.Y--; break;
+					}
+				case 2:
+					{
+						this.X++; break;
+					}
+				case 3:
+					{
+						this.X--; break;
+					}
 			}
 		}
 
@@ -83,6 +88,12 @@ namespace Live
 			set { x = value; }
 			get { return x; }
 		}
+		public int Y
+		{
+			set { y = value; }
+			get { return y; }
+		}
+
 
 	}
 

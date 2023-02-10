@@ -14,6 +14,8 @@ namespace Live
 		private int minX, minY, maxX, maxY;
 		private Microbe[] microbe;
 
+	
+
 		public MicrobManagar( int minX, int minY, int maxX, int maxY, int countMicrobe)
 		{
 			this.rnd = new Random();
@@ -33,15 +35,15 @@ namespace Live
 			for (int i = 0; i < microbe.Length; i++)
 			{
 				microbe[i] = new Microbe(
-			rnd.Next(maxX, minX + 10),
-			rnd.Next(maxY, minY + 10),
-			ConsoleColor.Green,
-			//(ConsoleColor)(looks[0] = (char)ConsoleColor.Blue),
-			3,
-			looks[rnd.Next(1,looks.Length)]);
-			
+			rnd.Next(minX,maxX + 10),
+			rnd.Next(minY,maxY + 10),
+			rnd.Next(0,2)
+			);
 			}
 		}
+
+
+	
 
 		private void MoveMicrobe()
 		{
@@ -49,7 +51,7 @@ namespace Live
 			{
 				microbe[i].Movement();
 
-				if (microbe[i].X > maxX)
+				if (microbe[i].X > maxX || microbe[i].X < minX || microbe[i].Y > maxY || microbe[i].Y < minY)
 				{
 					microbe[i].X = minX;
 				}
